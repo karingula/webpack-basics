@@ -55,7 +55,13 @@ module.exports = {
     plugins: [
         extractPlugin,
         new HtmlWebpackPlugin({
+            filename: 'page.html',
             template: 'page.html'
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'users.html',
+            template: 'users.html',
+            chunks: []
         }),
         new CleanWebpackPlugin(['dist'])
     ]
