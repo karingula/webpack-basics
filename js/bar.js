@@ -1,5 +1,5 @@
 export default function bar(){
-    console.log('Hello welcome to webpack!')
+    console.log('Hello Billionaire!')
 }
 
 export var secretButton = document.querySelector('#secret-button');
