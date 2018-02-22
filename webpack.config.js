@@ -1,5 +1,6 @@
 
 var path = require('path');
+var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -36,6 +37,7 @@ module.exports = {
             {
                 test: /\.html$/,
                 use: ['html-loader']
+
             },
             {
                 test: /\.(jpg|png)$/,
@@ -49,20 +51,36 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.html$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[name].[ext]'
+                        }
+                    }
+                ],
+                exclude: path.resolve(__dirname, 'page.html')
             }
         ]
     },
     plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
         extractPlugin,
         new HtmlWebpackPlugin({
             filename: 'page.html',
             template: 'page.html'
         }),
-        new HtmlWebpackPlugin({
-            filename: 'users.html',
-            template: 'users.html',
-            chunks: []
-        }),
+        // new HtmlWebpackPlugin({
+        //     filename: 'users.html',
+        //     template: 'users.html',
+        //     chunks: []
+        // }),
         new CleanWebpackPlugin(['dist'])
     ]
 };
